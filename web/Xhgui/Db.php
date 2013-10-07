@@ -21,7 +21,10 @@ class Xhgui_Db
             $host = Xhgui_Config::read('db.host');
         }
         if (empty($db)) {
-            $db = Xhgui_Config::read('db.db');
+			if ($_GET['db']) {
+				setcookie('xhprof_db', $_GET['db']);
+			}
+			$db = $_GET['db'] ?: ($_COOKIE['xhprof_db'] ?: 'xhprof');
         }
         self::$_mongo = new MongoClient($host);
         self::$_db = self::$_mongo->{$db};

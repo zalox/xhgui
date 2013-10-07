@@ -31,7 +31,8 @@
  *
  */
 // Obtain the answer to life, the universe, and your application one time out of a hundred 
-if (rand(0, 100) === 42) {
+if (isset($_GET['xprofile']) && $_GET['xprofile'] == 1) {
+//if (rand(0, 100) === 42) {
     xhprof_enable(XHPROF_FLAGS_CPU | XHPROF_FLAGS_MEMORY);
     register_shutdown_function('Xhgui_recordXHProfData');
 }
@@ -53,17 +54,18 @@ function Xhgui_recordXHProfData()
     }
 
     $data['meta'] = array(
-        'url' => $_SERVER['REQUEST_URI'],
+        'url' => $_SERVER['HTTP_HOST'] . '/' . ($_GET['q'] === 'home' ? '' : $_GET['q']),
         'SERVER' => $_SERVER,
         'get' => $_GET,
         'env' => $_ENV,
-        'simple_url' => Xhgui_Util::simpleUrl($_SERVER['REQUEST_URI']),
+        //'simple_url' => Xhgui_Util::simpleUrl($_SERVER['REQUEST_URI']),
+		'simple_url' => $_SERVER['HTTP_HOST'] . $_GET['q'],
         'request_ts' => new MongoDate($_SERVER['REQUEST_TIME']),
         'request_date' => date('Y-m-d', $_SERVER['REQUEST_TIME']),
     );
 
     try {
-        $db = Xhgui_Db::connect();
+        $db = Xhgui_Db::connect(null, 'xhprof');
         $profiles = new Xhgui_Profiles($db->results);
         $profiles->insert($data, array('w' => false));
     } catch (Exception $e) {
