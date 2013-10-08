@@ -65,7 +65,8 @@ function Xhgui_recordXHProfData()
     );
 
     try {
-        $db = Xhgui_Db::connect(null, 'xhprof');
+		$host = gethostname();
+        $db = Xhgui_Db::connect(null, ($host === 'web3' ? 'xhprof_production' : 'xhprof'));
         $profiles = new Xhgui_Profiles($db->results);
         $profiles->insert($data, array('w' => false));
     } catch (Exception $e) {
