@@ -8,7 +8,7 @@ function is_local() {
  * Configuration for Xhgui
  */
 return array(
-    'db.host' => (is_local() ? 'mongodb://localhost:27017' : 'mongodb://10.188.21.221:27017'),
+    'db.host' => (is_local() ? 'mongodb://localhost:27017' : 'mongodb://10.174.77.212:27017'),
     'db.db' => 'xhprof',
     'date.format' => 'M jS H:i:s',
     'detail.count' => 6,
