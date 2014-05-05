@@ -31,7 +31,7 @@
 *
  */
 // Obtain the answer to life, the universe, and your application one time out of a hundred 
-if (isset($_GET['xprofile']) && $_GET['xprofile'] == 1) {
+if ((isset($_GET['xprofile']) && $_GET['xprofile'] == 1) || (gethostname() === 'web3' && rand(0, 1e5) === 42)) {
 	//if (rand(0, 100) === 42) {
 	xhprof_enable(XHPROF_FLAGS_CPU | XHPROF_FLAGS_MEMORY);
 	register_shutdown_function('Xhgui_recordXHProfData');
