@@ -13,7 +13,7 @@ return array(
 		// to reduce locking problems (eg uniqid, time ...)
 		//'save.handler.filename' => __DIR__.'/../data/xhgui_'.date('Ymd').'.dat',
 		'db.host' => (!strpos($_SERVER['HTTP_HOST'], 'dw.com')) ? 'mongodb://10.174.77.212:27017' : 'mongodb://127.0.0.1:27017',
-		'db.db' => 'xhprof',
+		'db.db' => ($_GET['db'] ? : ((gethostname() == 'web3') ? 'xhprof_production' : 'xhprof')),
 
 		// Allows you to pass additional options like replicaSet to MongoClient.
 		'db.options' => array(),
