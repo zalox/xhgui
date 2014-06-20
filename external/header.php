@@ -92,7 +92,7 @@ register_shutdown_function(function() {
 		$param_str = '/?' . implode('&', $param_str);
 	}
 
-    $uri = array_key_exists('REQUEST_URI', $_SERVER) ? ($_SERVER['HTTP_HOST'] . ($param_str ?: '')) : null;
+    $uri = array_key_exists('REQUEST_URI', $_SERVER) ? ($_SERVER['HTTP_HOST'] . '/' . $_SERVER['REDIRECT_URL'] . ($param_str ?: '')) : null;
     if (empty($uri) && isset($_SERVER['argv'])) {
         $cmd = basename($_SERVER['argv'][0]);
         $uri = $cmd . ' ' . implode(' ', array_slice($_SERVER['argv'], 1));
