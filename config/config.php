@@ -3,9 +3,9 @@
 * Default configuration for Xhgui
  */
 if ($_GET['db'] === 'xhprof_production') {
-	setcookie('xhprof_production', '1', time() + 24 * 3600 * 3, '/', $_SERVER['HTTP_HOST']);
+	setcookie('xhprof_production', '1', time() + 24 * 3600 * 3, '/', '.ftb-web1.com');
 } else if ($_GET['db'] === 'xhprof') {
-	setcookie('xhprof_production', '', time() - 3600, '/', $_SERVER['HTTP_HOST']);
+	setcookie('xhprof_production', '', time() - 3600, '/', '.ftb-web1.com');
 	unset($_COOKIE['xhprof_production']);
 }
 
