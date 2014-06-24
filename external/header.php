@@ -37,7 +37,20 @@ if (!extension_loaded('xhprof')) {
     return;
 }
 
-if (!extension_loaded('mongo')) {
+if (defined('HHVM_VERSION')) {
+    // FindTheBest Modifications
+    //  Register autoload callback for Mongofill submodule.
+    if (defined('HHVM_VERSION')) {
+        spl_autoload_register(function ($class_name) {
+            $class_name = str_replace('Mongofill\\', 'Mongofill/', $class_name);
+            if (file_exists(XHGUI_ROOT_DIR . "/../mongofill/src/{$class_name}.php")) {
+                require_once XHGUI_ROOT_DIR . "/../mongofill/src/{$class_name}.php";
+                return true;
+            }
+            return false;
+        });
+    }
+} else if (!extension_loaded('mongo')) {
     error_log('xhgui - extension mongo not loaded');
     return;
 }
@@ -67,7 +80,11 @@ if (!isset($_SERVER['REQUEST_TIME_FLOAT'])) {
 
 xhprof_enable(XHPROF_FLAGS_CPU | XHPROF_FLAGS_MEMORY);
 
-register_shutdown_function(function() {
+// While HHVM officially *does* support register_shutdown_function(),
+//  it doesn't seem to be working as of version 3.1.0.
+$register_shutdown_function = defined('HHVM_VERSION') ? 'register_postsend_function' : 'register_shutdown_function';
+
+call_user_func($register_shutdown_function, function() {
     // ignore_user_abort(true) allows your PHP script to continue executing, even if the user has terminated their request.
     // Further Reading: http://blog.preinheimer.com/index.php?/archives/248-When-does-a-user-abort.html
     // flush() asks PHP to send any data remaining in the output buffers. This is normally done when the script completes, but
