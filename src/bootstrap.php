@@ -13,6 +13,7 @@ if (file_exists(XHGUI_ROOT_DIR . '/vendor/autoload.php')) {
 // FindTheBest Modifications
 //  Register autoload callback for Mongofill submodule.
 if (defined('HHVM_VERSION')) {
+	require_once XHGUI_ROOT_DIR . "/../mongofill/src/functions.php";
     spl_autoload_register(function ($class_name) {
         $class_name = str_replace('Mongofill\\', 'Mongofill/', $class_name);
         if (file_exists(XHGUI_ROOT_DIR . "/../mongofill/src/{$class_name}.php")) {
