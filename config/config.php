@@ -23,7 +23,9 @@ return array(
 		'db.db' => ($_GET['db'] ? : (($_COOKIE['xhprof_production'] || gethostname() == 'web3') ? 'xhprof_production' : 'xhprof')),
 
 		// Allows you to pass additional options like replicaSet to MongoClient.
-		'db.options' => array(),
+		'db.options' => array(
+			'replicaSet' => 'rs0'
+		),
 		'templates.path' => dirname(__DIR__) . '/src/templates',
 		'date.format' => 'M jS H:i:s',
 		'detail.count' => 6,
