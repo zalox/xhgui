@@ -10,6 +10,7 @@ if ($_GET['db'] === 'xhprof_production') {
 }
 
 $is_local = strpos($_SERVER['HTTP_HOST'], 'dw.com') !== false;
+$is_prod_server = 'web3b';
 return array(
 		'debug' => false,
 		'mode' => 'development',
@@ -33,7 +34,7 @@ return array(
 		// Profile 1 in 100 requests.
 		// You can return true to profile every request.
 		'profiler.enable' => function() {
-			return ($_GET['xprofile'] == 1) || (rand(1, 80000) == 42);
+			return ($_GET['xprofile'] == 1) || ((gethostname() == 'web3b') && (rand(1, 80000) == 42));
 		},
 
 		'profiler.simple_url' => function($url) {
