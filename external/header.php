@@ -43,8 +43,8 @@ if (defined('HHVM_VERSION')) {
     if (defined('HHVM_VERSION')) {
         spl_autoload_register(function ($class_name) {
             $class_name = str_replace('Mongofill\\', 'Mongofill/', $class_name);
-            if (file_exists(XHGUI_ROOT_DIR . "/../mongofill/src/{$class_name}.php")) {
-                require_once XHGUI_ROOT_DIR . "/../mongofill/src/{$class_name}.php";
+            if (file_exists("./sites/all/modules/custom/lib/mongofill/src/{$class_name}.php")) {
+                require_once "./sites/all/modules/custom/lib/mongofill/src/{$class_name}.php";
                 return true;
             }
             return false;
@@ -109,7 +109,7 @@ call_user_func($register_shutdown_function, function() {
 		$param_str = '/?' . implode('&', $param_str);
 	}
 
-    $uri = array_key_exists('REQUEST_URI', $_SERVER) ? ($_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'])[0] . ($param_str ?: '')) : null;
+    $uri = array_key_exists('REQUEST_URI', $_SERVER) ? ($_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0] . ($param_str ?: '')) : null;
     if (empty($uri) && isset($_SERVER['argv'])) {
         $cmd = basename($_SERVER['argv'][0]);
         $uri = $cmd . ' ' . implode(' ', array_slice($_SERVER['argv'], 1));
