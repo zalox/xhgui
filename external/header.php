@@ -37,24 +37,6 @@ if (!extension_loaded('xhprof')) {
     return;
 }
 
-if (defined('HHVM_VERSION')) {
-    // FindTheBest Modifications
-    //  Register autoload callback for Mongofill submodule.
-    if (defined('HHVM_VERSION')) {
-        spl_autoload_register(function ($class_name) {
-            $class_name = str_replace('Mongofill\\', 'Mongofill/', $class_name);
-            if (file_exists("./sites/all/modules/custom/lib/mongofill/src/{$class_name}.php")) {
-                require_once "./sites/all/modules/custom/lib/mongofill/src/{$class_name}.php";
-                return true;
-            }
-            return false;
-        });
-    }
-} else if (!extension_loaded('mongo')) {
-    error_log('xhgui - extension mongo not loaded');
-    return;
-}
-
 // Use the callbacks defined in the configuration file
 // to determine whether or not XHgui should enable profiling.
 //
