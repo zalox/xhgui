@@ -3,9 +3,9 @@
 * Default configuration for Xhgui
  */
 if ($_GET['db'] === 'xhprof_production') {
-	setcookie('xhprof_production', '1', time() + 24 * 3600 * 3, '/', '.ftb-web1.com');
+	setcookie('xhprof_production', '1', time() + 24 * 3600 * 3, '/', '.ftb-direct.com');
 } else if ($_GET['db'] === 'xhprof') {
-	setcookie('xhprof_production', '', time() - 3600, '/', '.ftb-web1.com');
+	setcookie('xhprof_production', '', time() - 3600, '/', '.ftb-direct.com');
 	unset($_COOKIE['xhprof_production']);
 }
 
@@ -22,7 +22,7 @@ return array(
 		// to reduce locking problems (eg uniqid, time ...)
 		//'save.handler.filename' => __DIR__.'/../data/xhgui_'.date('Ymd').'.dat',
 		'db.host' => !$is_local ? 'mongodb://mongodb1:27017' : 'mongodb://127.0.0.1:27017',
-		'db.db' => ($_GET['db'] ? : (($_COOKIE['xhprof_production'] || gethostname() == 'web3b') ? 'xhprof_production' : 'xhprof')),
+		'db.db' => ($_GET['db'] ? : ($_COOKIE['xhprof_production'] ? 'xhprof_production' : 'xhprof')),
 
 		// Allows you to pass additional options like replicaSet to MongoClient.
 		'db.options' => $is_local ? [] : ['replicaSet' => 'rs0'],
