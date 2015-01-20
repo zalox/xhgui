@@ -10,7 +10,6 @@ if ($_GET['db'] === 'xhprof_production') {
 }
 
 $is_local = strpos($_SERVER['HTTP_HOST'], 'dw.com') !== false;
-$is_prod_server = 'web3b';
 return array(
 		'debug' => false,
 		'mode' => 'development',
