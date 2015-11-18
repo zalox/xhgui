@@ -20,7 +20,7 @@ return array(
 		// Needed for file save handler. Beware of file locking. You can adujst this file path
 		// to reduce locking problems (eg uniqid, time ...)
 		//'save.handler.filename' => __DIR__.'/../data/xhgui_'.date('Ymd').'.dat',
-		'db.host' => !$is_local ? 'mongodb://mongo2b:27017' : 'mongodb://127.0.0.1:27017',
+		'db.host' => !$is_local ? 'mongodb://mongo1b:27017' : 'mongodb://127.0.0.1:27017',
 		'db.db' => ($_GET['db'] ? : ($_COOKIE['xhprof_production'] ? 'xhprof_production' : 'xhprof')),
 
 		// Allows you to pass additional options like replicaSet to MongoClient.
