@@ -21,7 +21,7 @@ return array(
 		// to reduce locking problems (eg uniqid, time ...)
 		//'save.handler.filename' => __DIR__.'/../data/xhgui_'.date('Ymd').'.dat',
 		'db.host' => !$is_local ? 'mongodb://mongo1b:27017' : 'mongodb://127.0.0.1:27017',
-		'db.db' => ($_GET['db'] ? : ($_COOKIE['xhprof_production'] ? 'xhprof_production' : 'xhprof')),
+		'db.db' => 'xhprof',
 
 		// Allows you to pass additional options like replicaSet to MongoClient.
 		'db.options' => $is_local ? [] : ['replicaSet' => 'rs0'],
@@ -33,7 +33,7 @@ return array(
 		// Profile 1 in 100 requests.
 		// You can return true to profile every request.
 		'profiler.enable' => function() {
-			return ($_GET['xprofile'] == 1) || ((gethostname() == 'web3b') && (rand(1, 80000) == 42));
+			return $_GET['xprofile'] == 1;
 		},
 
 		'profiler.simple_url' => function($url) {
