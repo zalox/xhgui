@@ -8,7 +8,8 @@
 {% block content %}
 <div class="row-fluid">
     <a class="back-link" href="{{ url('run.view', {'id': id}) }}">&laquo; Back to run</a>
-    <h1>Parent/child calls for {{ symbol }}</h1>
+    <h1>Function Details</h1>
+    <h3 class="function-name">{{ symbol }}</h3>
 </div>
 <div class="row-fluid">
     <h3>Current function</h3>
@@ -17,10 +18,10 @@
             <tr>
                 <th>Function</th>
                 <th>Call Count</th>
-                <th>Exclusive Wall Time</th>
-                <th>Exclusive CPU</th>
-                <th>Exclusive Memory Usage</th>
-                <th>Exclusive Peak Memory Usage</th>
+                <th>Self Wall Time</th>
+                <th>Self CPU</th>
+                <th>Self Memory Usage</th>
+                <th>Self Peak Memory Usage</th>
                 <th>Inclusive Wall Time</th>
                 <th>Inclusive CPU</th>
                 <th>Inclusive Memory Usage</th>
@@ -59,10 +60,10 @@
             <tr>
                 <th>Function</th>
                 <th>Call Count</th>
-                <th>Exclusive Wall Time</th>
-                <th>Exclusive CPU</th>
-                <th>Exclusive Memory Usage</th>
-                <th>Exclusive Peak Memory Usage</th>
+                <th>Self Wall Time</th>
+                <th>Self CPU</th>
+                <th>Self Memory Usage</th>
+                <th>Self Peak Memory Usage</th>
 
                 <th>Inclusive Wall Time</th>
                 <th>Inclusive CPU</th>

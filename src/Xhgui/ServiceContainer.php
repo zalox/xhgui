@@ -26,16 +26,20 @@ class Xhgui_ServiceContainer extends Pimple
     // Create the Slim app.
     protected function _slimApp()
     {
-        $this['view'] = function () {
+        $this['view'] = function ($c) {
+            $cacheDir = isset($c['config']['cache']) ? $c['config']['cache'] : XHGUI_ROOT_DIR . '/cache';
+
             // Configure Twig view for slim
             $view = new Twig();
+
             $view->parserOptions = array(
                 'charset' => 'utf-8',
-                'cache' => XHGUI_ROOT_DIR . '/cache',
+                'cache' => $cacheDir,
                 'auto_reload' => true,
                 'strict_variables' => false,
                 'autoescape' => true
             );
+
             return $view;
         };
 
@@ -87,15 +91,11 @@ class Xhgui_ServiceContainer extends Pimple
         $this['saver'] = function($c) {
             $config = $c['config'];
             switch ($config['save.handler']) {
-                case 'mongodb':
-                    return $c['saverMongo'];
-                    break;
                 case 'file':
                     return new Xhgui_Saver_File($config['save.handler.filename']);
-                    break;
+                case 'mongodb':
                 default:
                     return $c['saverMongo'];
-                    break;
             }
         };
 

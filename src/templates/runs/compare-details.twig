@@ -9,6 +9,8 @@
             <th class="right">Inclusive CPU</th>
             <th class="right">Inclusive Memory</th>
             <th class="right">Inclusive Peak Memory</th>
+        </tr>
+    </thead>
     <tbody>
         <tr>
             <th>
@@ -28,7 +30,7 @@
         <tr>
             <th>
                 <span class="badge compare-head">
-                    head - {{ comparison.head.date|date(date_format) }}
+                    new - {{ comparison.head.date|date(date_format) }}
                 </span>
                 <a target="_blank" href="{{ url('run.view', {id: comparison.head.id|trim}) }}">
                     {{ comparison.head.id }}
@@ -60,17 +62,21 @@
 </table>
 
 
+<div class="pull-right form-search">
+  <input type="search" id="function-filter" placeholder="Filter by function name" />
+</div>
+
 <h3>Details</h3>
 
-<table class="table table-hover table-sort">
+<table class="table table-hover table-sort" id="filter-table">
     <thead>
         <tr>
             <th>Function</th>
             <th>Call Count</th>
-            <th>Exclusive Wall Time</th>
-            <th>Exclusive CPU</th>
-            <th>Exclusive Memory Usage</th>
-            <th>Exclusive Peak Memory Usage</th>
+            <th>Self Wall Time</th>
+            <th>Self CPU</th>
+            <th>Self Memory Usage</th>
+            <th>Self Peak Memory Usage</th>
             <th>Inclusive Wall Time</th>
             <th>Inclusive CPU</th>
             <th>Inclusive Memory Usage</th>
@@ -78,22 +84,22 @@
         </tr>
     </thead>
     <tbody>
-    {% for key, value in comparison.diff %}
-    <tr>
-        <td class="text">
-            <a href="{{ url('run.symbol', {'id': comparison.base.id|trim, 'symbol': key}) }}">{{ key }}</a>
-        </td>
-        <td class="right">{{ value.ct|as_diff }}</td>
-        <td class="right">{{ value.ewt|as_diff }}</td>
-        <td class="right">{{ value.ecpu|as_diff }}</td>
-        <td class="right">{{ value.emu|as_diff }}</td>
-        <td class="right">{{ value.epmu|as_diff }}</td>
-        <td class="right">{{ value.wt|as_diff }}</td>
-        <td class="right">{{ value.cpu|as_diff }}</td>
-        <td class="right">{{ value.mu|as_diff }}</td>
-        <td class="right">{{ value.pmu|as_diff }}</td>
-    </tr>
-    {% endfor %}
+        {% for key, value in comparison.diff %}
+        <tr>
+            <td class="text">
+                <a href="{{ url('run.symbol', {'id': comparison.head.id|trim, 'symbol': key}) }}">{{ key }}</a>
+            </td>
+            <td class="right">{{ value.ct|as_diff }}</td>
+            <td class="right">{{ value.ewt|as_diff }}</td>
+            <td class="right">{{ value.ecpu|as_diff }}</td>
+            <td class="right">{{ value.emu|as_diff }}</td>
+            <td class="right">{{ value.epmu|as_diff }}</td>
+            <td class="right">{{ value.wt|as_diff }}</td>
+            <td class="right">{{ value.cpu|as_diff }}</td>
+            <td class="right">{{ value.mu|as_diff }}</td>
+            <td class="right">{{ value.pmu|as_diff }}</td>
+        </tr>
+        {% endfor %}
     </tbody>
 </table>
-
+<p>Red values are higher in 'new'. Green values are lower in 'new'.</p>

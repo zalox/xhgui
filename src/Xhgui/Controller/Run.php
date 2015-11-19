@@ -66,9 +66,9 @@ class Xhgui_Controller_Run extends Xhgui_Controller
         $detailCount = $this->_app->config('detail.count');
         $result = $this->_profiles->get($request->get('id'));
 
-        $result->calculateExclusive();
+        $result->calculateSelf();
 
-        // Exclusive wall time graph
+        // Self wall time graph
         $timeChart = $result->extractDimension('ewt', $detailCount);
 
         // Memory Block
@@ -92,7 +92,7 @@ class Xhgui_Controller_Run extends Xhgui_Controller
             'wall_time' => $timeChart,
             'memory' => $memoryChart,
             'watches' => $watchedFunctions,
-            'date_format' => $this->_app->config('date_format'),
+            'date_format' => $this->_app->config('date.format'),
         ));
     }
 
@@ -210,10 +210,33 @@ class Xhgui_Controller_Run extends Xhgui_Controller
         $symbol = $request->get('symbol');
 
         $profile = $this->_profiles->get($id);
-        $profile->calculateExclusive();
+        $profile->calculateSelf();
         list($parents, $current, $children) = $profile->getRelatives($symbol);
 
-        $this->_template = 'runs/symbol-view.twig';
+        $this->_template = 'runs/symbol.twig';
+        $this->set(array(
+            'symbol' => $symbol,
+            'id' => $id,
+            'main' => $profile->get('main()'),
+            'parents' => $parents,
+            'current' => $current,
+            'children' => $children,
+        ));
+    }
+
+    public function symbolShort()
+    {
+        $request = $this->_app->request();
+        $id = $request->get('id');
+        $threshold = $request->get('threshold');
+        $symbol = $request->get('symbol');
+        $metric = $request->get('metric');
+
+        $profile = $this->_profiles->get($id);
+        $profile->calculateSelf();
+        list($parents, $current, $children) = $profile->getRelatives($symbol, $metric, $threshold);
+
+        $this->_template = 'runs/symbol-short.twig';
         $this->set(array(
             'symbol' => $symbol,
             'id' => $id,
@@ -232,7 +255,7 @@ class Xhgui_Controller_Run extends Xhgui_Controller
         $this->_template = 'runs/callgraph.twig';
         $this->set(array(
             'profile' => $profile,
-            'date_format' => $this->_app->config('date_format'),
+            'date_format' => $this->_app->config('date.format'),
         ));
     }
 
@@ -244,6 +267,19 @@ class Xhgui_Controller_Run extends Xhgui_Controller
         $metric = $request->get('metric') ?: 'wt';
         $threshold = (float)$request->get('threshold') ?: 0.01;
         $callgraph = $profile->getCallgraph($metric, $threshold);
+
+        $response['Content-Type'] = 'application/json';
+        return $response->body(json_encode($callgraph));
+    }
+
+    public function callgraphDataDot()
+    {
+        $request = $this->_app->request();
+        $response = $this->_app->response();
+        $profile = $this->_profiles->get($request->get('id'));
+        $metric = $request->get('metric') ?: 'wt';
+        $threshold = (float)$request->get('threshold') ?: 0.01;
+        $callgraph = $profile->getCallgraphNodes($metric, $threshold);
 
         $response['Content-Type'] = 'application/json';
         return $response->body(json_encode($callgraph));
