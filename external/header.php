@@ -119,9 +119,18 @@ register_shutdown_function(
             require dirname(dirname(__FILE__)) . '/src/bootstrap.php';
         }
 
-        $uri = array_key_exists('REQUEST_URI', $_SERVER)
-            ? $_SERVER['REQUEST_URI']
-            : null;
+        $url_param = $_GET;
+        unset($url_param['q']);
+        unset($url_param['xprofile']);
+        $param_str = [];
+        if ($url_param) {
+            foreach ($url_param as $key => $value) {
+                $param_str[] = "$key=$value";
+            }
+            $param_str = '/?' . implode('&', $param_str);
+        }
+
+        $uri = array_key_exists('REQUEST_URI', $_SERVER) ? ($_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0] . ($param_str ?: '')) : null;
         if (empty($uri) && isset($_SERVER['argv'])) {
             $cmd = basename($_SERVER['argv'][0]);
             $uri = $cmd . ' ' . implode(' ', array_slice($_SERVER['argv'], 1));
