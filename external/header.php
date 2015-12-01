@@ -108,6 +108,11 @@ register_shutdown_function(
             $data['profile'] = xhprof_disable();
         }
 
+        // Disregard results on /stat calls with less than 1 sec response
+        if (strpos($_SERVER['REQUEST_URI'], '/stat') === 0 && $data['profile']['main()']['wt'] < 1e6) {
+            return;
+        }
+
         // ignore_user_abort(true) allows your PHP script to continue executing, even if the user has terminated their request.
         // Further Reading: http://blog.preinheimer.com/index.php?/archives/248-When-does-a-user-abort.html
         // flush() asks PHP to send any data remaining in the output buffers. This is normally done when the script completes, but
