@@ -33,7 +33,7 @@ return array(
 		// Profile 1 in 100 requests.
 		// You can return true to profile every request.
 		'profiler.enable' => function() {
-			return $_GET['xprofile'] == 1;
+			return array_key_exists('xprofile', $_GET) && $_GET['xprofile'] == 1;
 		},
 
 		'profiler.simple_url' => function($url) {
