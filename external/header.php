@@ -98,6 +98,8 @@ if (extension_loaded('uprofiler')) {
     }
 }
 
+ignore_user_abort(true);
+
 register_shutdown_function(
     function () {
         if (extension_loaded('uprofiler')) {
