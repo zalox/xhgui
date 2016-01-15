@@ -2,14 +2,16 @@
 /**
 * Default configuration for Xhgui
  */
-if ($_GET['db'] === 'xhprof_production') {
-	setcookie('xhprof_production', '1', time() + 24 * 3600 * 3, '/', '.ftb-direct.com');
-} else if ($_GET['db'] === 'xhprof') {
-	setcookie('xhprof_production', '', time() - 3600, '/', '.ftb-direct.com');
-	unset($_COOKIE['xhprof_production']);
-}
-
+require_once '/opt/graphiq/service_info/services.php';
 $is_local = strpos($_SERVER['HTTP_HOST'], 'dw.com') !== false;
+$mongo_servers = service_lookup('prod-mongo');
+$connections = [];
+foreach ($mongo_servers as $server) {
+	$connections[] = $server['host'] . ':' . $server['port'];
+}
+$host = 'mongodb://' . implode(',', $connections);
+
+
 return array(
 		'debug' => false,
 		'mode' => 'development',
@@ -20,7 +22,7 @@ return array(
 		// Needed for file save handler. Beware of file locking. You can adujst this file path
 		// to reduce locking problems (eg uniqid, time ...)
 		//'save.handler.filename' => __DIR__.'/../data/xhgui_'.date('Ymd').'.dat',
-		'db.host' => !$is_local ? 'mongodb://mongo1b:27017' : 'mongodb://127.0.0.1:27017',
+		'db.host' => $host,
 		'db.db' => 'xhprof',
 
 		// Allows you to pass additional options like replicaSet to MongoClient.
