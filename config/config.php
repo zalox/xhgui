@@ -2,15 +2,19 @@
 /**
 * Default configuration for Xhgui
  */
-require_once '/opt/graphiq/service_info/services.php';
-$is_local = strpos($_SERVER['HTTP_HOST'], 'dw.com') !== false;
-$mongo_servers = service_lookup('prod-mongo');
-$connections = [];
-foreach ($mongo_servers as $server) {
-	$connections[] = $server['host'] . ':' . $server['port'];
+$result = include($_SERVER['DOCUMENT_ROOT'] . '/sites/default/services.php');
+$services = $result['services'];
+$is_local = $result['is_local'];
+$mongo_servers = $services['prod-mongo'];
+if (!$is_local) {
+	$connections = [];
+	foreach ($mongo_servers as $server) {
+		$connections[] = $server['host'] . ':' . $server['port'];
+	}
+	$host = 'mongodb://' . implode(',', $connections);
+} else {
+	$host = 'mongodb://127.0.0.1:27017';
 }
-$host = 'mongodb://' . implode(',', $connections);
-
 
 return array(
 		'debug' => false,
