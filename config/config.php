@@ -5,7 +5,7 @@
 $result = include($_SERVER['DOCUMENT_ROOT'] . '/sites/default/services.php');
 $services = $result['services'];
 $is_local = $result['is_local'];
-$mongo_servers = $services['prod-mongo'];
+$mongo_servers = $services['prod-mongo']['_ALL_'];
 if (!$is_local) {
 	$connections = [];
 	foreach ($mongo_servers as $server) {
