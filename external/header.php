@@ -73,7 +73,7 @@ if (file_exists($dir . '/config/config.php')) {
 }
 unset($dir);
 
-if (!class_exists('MongoClient') && !extension_loaded('mongodb')) {
+if (!defined('HHVM_VERSION') && !class_exists('MongoClient') && !extension_loaded('mongodb')) {
     error_log('xhgui - extension mongo not loaded');
     return;
 }
