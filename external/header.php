@@ -73,10 +73,10 @@ if (file_exists($dir . '/config/config.php')) {
 }
 unset($dir);
 
-if (!defined('HHVM_VERSION') && !class_exists('MongoClient') && !extension_loaded('mongodb')) {
-    error_log('xhgui - extension mongo not loaded');
-    return;
-}
+// if (!defined('HHVM_VERSION') && !class_exists('MongoClient') && !extension_loaded('mongodb')) {
+//     error_log('xhgui - extension mongo not loaded');
+//     return;
+// }
 
 if (!Xhgui_Config::shouldRun()) {
     return;
@@ -109,12 +109,6 @@ register_shutdown_function(
         } else {
             $data['profile'] = xhprof_disable();
         }
-
-        // Disregard results on /stat calls with less than 1 sec response
-        if (strpos($_SERVER['REQUEST_URI'], '/stat') === 0 && $data['profile']['main()']['wt'] < 1e6) {
-            return;
-        }
-
         // ignore_user_abort(true) allows your PHP script to continue executing, even if the user has terminated their request.
         // Further Reading: http://blog.preinheimer.com/index.php?/archives/248-When-does-a-user-abort.html
         // flush() asks PHP to send any data remaining in the output buffers. This is normally done when the script completes, but
@@ -137,7 +131,7 @@ register_shutdown_function(
             $param_str = '/?' . implode('&', $param_str);
         }
 
-        $uri = array_key_exists('REQUEST_URI', $_SERVER) ? ($_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0] . ($param_str ?: '')) : null;
+        $uri = $_SERVER ? array_key_exists('REQUEST_URI', $_SERVER) ? ($_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0] . ($param_str ?: '')) : null : null;
         if (empty($uri) && isset($_SERVER['argv'])) {
             $cmd = basename($_SERVER['argv'][0]);
             $uri = $cmd . ' ' . implode(' ', array_slice($_SERVER['argv'], 1));
