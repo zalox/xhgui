@@ -4,9 +4,140 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ce1482e32bf9a4a370e36bb9d805605b",
-    "content-hash": "615cd33ffb5b3be1ea616f9de39d4a67",
+    "hash": "81d2274c32ce211ee411e71442f0de07",
+    "content-hash": "2df52c6c126ef8f0aef00ba7b92896e1",
     "packages": [
+        {
+            "name": "mongofill/mongofill",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mongofill/mongofill.git",
+                "reference": "c2a16b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mongofill/mongofill/zipball/c2a16b7",
+                "reference": "c2a16b7",
+                "shasum": ""
+            },
+            "provide": {
+                "ext-mongo": "*"
+            },
+            "require-dev": {
+                "athletic/athletic": "dev-master",
+                "phpunit/phpunit": "~4.7.7"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    {
+                        "Mongofill": "src/"
+                    },
+                    {
+                        "Mongo": "src/Mongo.php"
+                    },
+                    {
+                        "MongoBinData": "src/MongoBinData.php"
+                    },
+                    {
+                        "MongoClient": "src/MongoClient.php"
+                    },
+                    {
+                        "MongoCode": "src/MongoCode.php"
+                    },
+                    {
+                        "MongoCollection": "src/MongoCollection.php"
+                    },
+                    {
+                        "MongoConnectionException": "src/MongoConnectionException.php"
+                    },
+                    {
+                        "MongoCursor": "src/MongoCursor.php"
+                    },
+                    {
+                        "MongoCursorException": "src/MongoCursorException.php"
+                    },
+                    {
+                        "MongoCursorTimeoutException": "src/MongoCursorTimeoutException.php"
+                    },
+                    {
+                        "MongoDB": "src/MongoDB.php"
+                    },
+                    {
+                        "MongoDBRef": "src/MongoDBRef.php"
+                    },
+                    {
+                        "MongoDate": "src/MongoDate.php"
+                    },
+                    {
+                        "MongoException": "src/MongoException.php"
+                    },
+                    {
+                        "MongoGridFS": "src/MongoGridFS.php"
+                    },
+                    {
+                        "MongoGridFSFile": "src/MongoGridFSFile.php"
+                    },
+                    {
+                        "MongoGridFSException": "src/MongoGridFSException.php"
+                    },
+                    {
+                        "MongoGridFSCursor": "src/MongoGridFSCursor.php"
+                    },
+                    {
+                        "MongoId": "src/MongoId.php"
+                    },
+                    {
+                        "MongoInt32": "src/MongoInt32.php"
+                    },
+                    {
+                        "MongoInt64": "src/MongoInt64.php"
+                    },
+                    {
+                        "MongoLog": "src/MongoLog.php"
+                    },
+                    {
+                        "MongoMaxKey": "src/MongoMaxKey.php"
+                    },
+                    {
+                        "MongoMinKey": "src/MongoMinKey.php"
+                    },
+                    {
+                        "MongoRegex": "src/MongoRegex.php"
+                    },
+                    {
+                        "MongoResultException": "src/MongoResultException.php"
+                    },
+                    {
+                        "MongoTimestamp": "src/MongoTimestamp.php"
+                    }
+                ],
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Husák",
+                    "email": "husak.j@gmail.com"
+                },
+                {
+                    "name": "Mongofill Community",
+                    "homepage": "https://github.com/mongofill/mongofill/graphs/contributors"
+                },
+                {
+                    "name": "Máximo Cuadros",
+                    "email": "mcuadros@gmail.com"
+                }
+            ],
+            "description": "Polyfill of PECL Mongo extension",
+            "time": "2015-08-22 21:39:36"
+        },
         {
             "name": "pimple/pimple",
             "version": "v1.0.2",
@@ -18,7 +149,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/silexphp/Pimple/zipball/ae11e57e8c2bb414b2ff93396dbbfc0eb92feb94",
-                "reference": "v1.0.2",
+                "reference": "ae11e57e8c2bb414b2ff93396dbbfc0eb92feb94",
                 "shasum": ""
             },
             "require": {
@@ -64,7 +195,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/slimphp/Slim/zipball/2e540cc392644b9b5cdcc57e5576db5a92ca2149",
-                "reference": "2.3.1",
+                "reference": "2e540cc392644b9b5cdcc57e5576db5a92ca2149",
                 "shasum": ""
             },
             "require": {
@@ -109,7 +240,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/slimphp/Slim-Views/zipball/d5eca1c0932aadf7255d83f3ed02ffc07c3c8297",
-                "reference": "0.1.0",
+                "reference": "d5eca1c0932aadf7255d83f3ed02ffc07c3c8297",
                 "shasum": ""
             },
             "require": {
@@ -128,14 +259,14 @@
             ],
             "authors": [
                 {
-                    "name": "Andrew Smith",
-                    "email": "a.smith@silentworks.co.uk",
-                    "homepage": "http://thoughts.silentworks.co.uk/"
-                },
-                {
                     "name": "Josh Lockhart",
                     "email": "info@joshlockhart.com",
                     "homepage": "http://www.joshlockhart.com/"
+                },
+                {
+                    "name": "Andrew Smith",
+                    "email": "a.smith@silentworks.co.uk",
+                    "homepage": "http://thoughts.silentworks.co.uk/"
                 }
             ],
             "description": "Twig View Parser package for the Slim Framework",
@@ -149,16 +280,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.23.1",
+            "version": "v1.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "d9b6333ae8dd2c8e3fd256e127548def0bc614c6"
+                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/d9b6333ae8dd2c8e3fd256e127548def0bc614c6",
-                "reference": "d9b6333ae8dd2c8e3fd256e127548def0bc614c6",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
+                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
                 "shasum": ""
             },
             "require": {
@@ -171,7 +302,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.23-dev"
+                    "dev-master": "1.24-dev"
                 }
             },
             "autoload": {
@@ -206,7 +337,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-11-05 12:49:06"
+            "time": "2016-01-25 21:22:18"
         }
     ],
     "packages-dev": [
@@ -534,7 +665,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/5794e3c5c5ba0fb037b11d8151add2a07fa82875",
-                "reference": "1.2.3",
+                "reference": "5794e3c5c5ba0fb037b11d8151add2a07fa82875",
                 "shasum": ""
             },
             "require": {
@@ -574,16 +705,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.7.6",
+            "version": "v2.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "eca9019c88fbe250164affd107bc8057771f3f4d"
+                "reference": "584e52cb8f788a887553ba82db6caacb1d6260bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/eca9019c88fbe250164affd107bc8057771f3f4d",
-                "reference": "eca9019c88fbe250164affd107bc8057771f3f4d",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/584e52cb8f788a887553ba82db6caacb1d6260bb",
+                "reference": "584e52cb8f788a887553ba82db6caacb1d6260bb",
                 "shasum": ""
             },
             "require": {
@@ -592,13 +723,16 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Yaml\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -616,12 +750,13 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-11 09:39:48"
+            "time": "2016-03-04 07:54:35"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "mongofill/mongofill": 20,
         "phpunit/phpunit": 20
     },
     "prefer-stable": false,
