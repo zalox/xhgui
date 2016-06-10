@@ -71,12 +71,14 @@ Xhgui_Config::load($dir . '/config/config.default.php');
 if (file_exists($dir . '/config/config.php')) {
     Xhgui_Config::load($dir . '/config/config.php');
 }
+
+require_once $dir . '/vendor/mongofill/mongofill/src/MongoClient.php';
 unset($dir);
 
-// if (!defined('HHVM_VERSION') && !class_exists('MongoClient') && !extension_loaded('mongodb')) {
-//     error_log('xhgui - extension mongo not loaded');
-//     return;
-// }
+if (!defined('HHVM_VERSION') && !class_exists('MongoClient')) {
+    error_log('xhgui - extension mongo not loaded');
+     return;
+}
 
 if (!Xhgui_Config::shouldRun()) {
     return;
